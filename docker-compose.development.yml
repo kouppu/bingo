@@ -1,0 +1,13 @@
+version: "3"
+# 開発環境
+services:
+  server:
+    container_name: bingo_server
+    build:
+      context: ./docker/server
+      dockerfile: Dockerfile
+    command: /bin/sh -c "cd ./server && yarn run dev"
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    volumes:
+      - ./:/app

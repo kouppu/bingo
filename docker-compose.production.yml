@@ -1,0 +1,21 @@
+version: "3"
+# 本番環境用
+services:
+  server:
+    container_name: bingo_server
+    environment:
+      VIRTUAL_HOST: ${SERVER_URL}
+      LETSENCRYPT_HOST: ${SERVER_URL}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+    build:
+      context: ./docker/server
+      dockerfile: Dockerfile
+    command: /bin/sh -c "cd ./client && yarn install && yarn run build && cd ../server && yarn install && yarn build && yarn run start"
+    expose:
+      - ${SERVER_PORT}
+    volumes:
+      - ./:/app
+networks:
+  default:
+    external:
+      name: shared
