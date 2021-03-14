@@ -20,7 +20,6 @@ class Socket {
 
   public start(): void {
     this.io.on('connection', (socket: socketIO.Socket) => {
-      console.log(socket.id)
       /** ホスト */
       // ホスト参加
       socket.on('createRoom', () => {
