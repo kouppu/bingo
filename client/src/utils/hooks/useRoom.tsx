@@ -6,7 +6,7 @@ import { APP } from '../../config';
 
 import { Error, ResultNums, LocalStorage } from '../types';
 
-type Join = (roomId: string, name: string) => void;
+type Join = (name: string) => void;
 
 /**
  * ローカルストレージに格納

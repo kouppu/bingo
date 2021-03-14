@@ -72,7 +72,7 @@ const Room: FC = () => {
   const handleNameForm = (name: string) => {
     setIsOpenNameForm(false);
     // ルームに参加
-    join(id, name);
+    join(name);
   };
 
   return (
