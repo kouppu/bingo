@@ -8,4 +8,4 @@
 
 - git clone git@github.com:suhrr/bingo.git
 - edit ./.env and ./client/.env
-- export $(cat .env | grep -v ^# | xargs); sh dockerRun.sh
+- sh deploy.sh
