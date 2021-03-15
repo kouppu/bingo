@@ -20,12 +20,12 @@ class Socket {
 
   public start(): void {
     this.io.on('connection', (socket: socketIO.Socket) => {
+      console.log(socket.id);
       /** ホスト */
       // ホスト参加
       socket.on('createRoom', () => {
-        const roomId = this.createRoomId(socket.id);
-        socket.join(roomId);
-        this.resNotifySuccessfulCreate(socket.id, roomId);
+        // roomIdはホストのクライアントID
+        this.resNotifySuccessfulCreate(socket.id, socket.id);
       });
 
       socket.on('notifySuccessfulJoin', (data: any) => {
@@ -68,15 +68,26 @@ class Socket {
           name: data.name,
         });
       });
+
+      socket.on('disconnecting', () => {
+        const roomIds = this.getRoomIds(socket);
+        for (const roomId of roomIds) {
+          socket.broadcast.to(roomId).emit('notifyLeaveUser', {
+            userId: socket.id,
+          });
+        }
+      });
+      socket.on('disconnect', () => {});
     });
   }
 
   /**
-   * ルームID生成
-   * @param socketId
+   * 所属しているルームID配列を返す
+   * @param socket
+   * @returns
    */
-  private createRoomId(socketId: string): string {
-    return `room_${socketId}`;
+  private getRoomIds(socket: socketIO.Socket): string[] {
+    return Object.keys(socket.rooms).map((item) => item);
   }
 
   /**
@@ -126,11 +137,7 @@ class Socket {
    * @param num
    */
   private resBingoNum(socket: socketIO.Socket, num: number): void {
-    // 自分以外のroom参加IDを抽出
-    const roomIds = Object.keys(socket.rooms).filter(
-      (item) => item != socket.id
-    );
-
+    const roomIds = this.getRoomIds(socket);
     for (const roomId of roomIds) {
       socket.broadcast.to(roomId).emit('notifyBingoNum', {
         num: num,
