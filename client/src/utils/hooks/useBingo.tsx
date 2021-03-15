@@ -63,8 +63,19 @@ const useBingo = (): [
         resultNums: bingoMachine.current.getResultNums(),
       });
     });
+
     socket.current = client;
   }, []);
+
+  useEffect(() => {
+    if (typeof socket.current === 'undefined') return;
+
+    // ユーザー退出時
+    socket.current.on('notifyLeaveUser', (data: any) => {
+      if (users.length === 0) return;
+      setUsers(users.filter((user) => user.id !== data.userId));
+    });
+  }, [users]);
 
   /**
    * ランダムな数値を表示する
