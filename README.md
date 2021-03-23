@@ -13,3 +13,4 @@
 ## Installation
 - git clone git@github.com:suhrr/bingo.git
 - docker-compose -f docker-compose.development.yml up -d
+- cd client/ && yarn start
