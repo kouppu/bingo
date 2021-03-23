@@ -1,5 +1,5 @@
 # BINGO
-> WEB上で出来るBINGOゲームアプリ
+> WEB上で遊べるBINGOゲームアプリ
 
 ## DEMO
  [BINGO](https://bingo.codeholic.me)  
