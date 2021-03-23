@@ -1,11 +1,15 @@
-# start
+# BINGO
+> WEB上で出来るBINGOゲームアプリ
 
-## development env
+## DEMO
+ [BINGO](https://bingo.codeholic.me)  
+ 
+## Skills
+- TypeScript
+- React
+- Express
+- Docker
 
-- docker-compose -f docker-compose.development.yml up -d
-
-## production env
-
+## Installation
 - git clone git@github.com:suhrr/bingo.git
-- edit ./.env and ./client/.env
-- sh deploy.sh
+- docker-compose -f docker-compose.development.yml up -d
